@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Template
 metadata:
   name: letsencrypt
+
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
@@ -30,7 +31,7 @@ objects:
           env:
           - name: LETSENCRYPT_CONTACT_EMAIL
             value: ${LETSENCRYPT_CONTACT_EMAIL}
-          image: ibotty/openshift-letsencrypt:latest
+          image: hk1232/openshift-letsencrypt:latest
           imagePullPolicy: Always
           name: watcher
           volumeMounts:
@@ -45,7 +46,7 @@ objects:
           env:
           - name: LETSENCRYPT_CONTACT_EMAIL
             value: ${LETSENCRYPT_CONTACT_EMAIL}
-          image: ibotty/openshift-letsencrypt:latest
+          image: hk1232/openshift-letsencrypt:latest
           name: cron
           terminationMessagePath: /dev/termination-log
           volumeMounts:
@@ -78,6 +79,7 @@ objects:
           name: datadir
     triggers:
     - type: ConfigChange
+
 - apiVersion: v1
   kind: Service
   metadata:
@@ -98,7 +100,9 @@ objects:
   kind: ServiceAccount
   metadata:
     name: letsencrypt
+
 parameters:
 - description: The email to be register by the ACME registry.
   name: LETSENCRYPT_CONTACT_EMAIL
   required: true
+
