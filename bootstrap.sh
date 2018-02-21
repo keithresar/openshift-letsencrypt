@@ -1,4 +1,5 @@
 
+PROJECT=`oc project | awk '{print $3}' | perl -pe 's/"//g'`
 
 # create global template
 #oc create -f template.yaml -n openshift
@@ -22,6 +23,6 @@ oc create secret generic letsencrypt-creds \
 # create app in our current project
 oc new-app --template=letsencrypt -p LETSENCRYPT_CONTACT_EMAIL=${EMAIL}
 
-oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:demo:letsencrypt
+oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:${PROJECT}:letsencrypt
 
 
