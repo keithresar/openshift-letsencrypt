@@ -23,3 +23,4 @@ ADD share/ $LETSENCRYPT_SHAREDIR
 
 ENTRYPOINT ["/usr/libexec/letsencrypt-container/entrypoint"]
 CMD ["usage"]
+
